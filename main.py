@@ -1,5 +1,5 @@
-from py_quote.animechan_api_client import get_quote
-from tg_api_client import send_message
+from animechan_api_client import get_quote
+from telegram_api_client import send_text
 from dotenv import load_dotenv
 import os
 
@@ -10,11 +10,12 @@ chat_id = os.getenv('TELEGRAM_CHAT_ID')
 if __name__ == "__main__":
 
     try:
-        quote = get_quote()
-        if quote:
-            send_message(TOKEN=TOKEN, chat_id=chat_id, message=quote)
+        text = get_quote()
+        if text:
+            res = send_text(TOKEN=TOKEN, chat_id=chat_id, text=text)
+            print(res)
         else:
-            send_message('something went wrong')
+            send_text('something went wrong')
     except Exception as e:
         print(e)
         
