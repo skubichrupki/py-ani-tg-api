@@ -1,4 +1,4 @@
-### random anime quote everyday via telegramq
+### random anime quote everyday via telegram using python
 
 - get request to api from https://animechan.io/
 - get request to telegram bot
