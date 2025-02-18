@@ -3,25 +3,29 @@ from telegram_api_client import TelegramApi
 from dotenv import load_dotenv
 import os
 
-def api_animechan():
-    url = 'https://animechan.io/api/v1/quotes/random'
-    api = AnimechanApi(url=url)
-    result = api.get_quote()
-    return result
+load_dotenv()
 
-def api_telegram(e=None):
-    load_dotenv()
-    TOKEN = os.getenv('TELEGRAM_TOKEN') 
-    chat_id = os.getenv('TELEGRAM_CHAT_ID')
-    text = e if e else api_animechan()
-    api = TelegramApi(TOKEN=TOKEN, chat_id=chat_id, text=text)
-    response = api.send_text()
-    return response
+class SendManager():
+    def __init__(self):
+        self.token = os.getenv('TELEGRAM_TOKEN') 
+        self.chat_id = os.getenv('TELEGRAM_CHAT_ID')
+        self.url = 'https://animechan.io/api/v1/quotes/random'
+
+    def api_animechan(self):
+        api = AnimechanApi(url=self.url)
+        result = api.get_quote()
+        return result
+
+    def api_telegram(self, e=None):
+        text = e if e else self.api_animechan()
+        api = TelegramApi(TOKEN=self.token, chat_id=self.chat_id, text=text)
+        response = api.send_text()
+        return response
 
 if __name__ == "__main__":
-
+    send_manager = SendManager()
     try:
-        response = api_telegram()
+        response = send_manager.api_telegram()
     except Exception as e:
-        response = api_telegram(str(e))
+        response = send_manager.api_telegram(str(e))
         print(f'error: {e}')
