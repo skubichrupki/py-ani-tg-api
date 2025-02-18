@@ -5,16 +5,30 @@ import requests
 # res = requests.get(url)
 # print(res._content)
 
+class TelegramApi():
 
-def send_text(TOKEN, chat_id, text):
+    def __init__(self, TOKEN, chat_id, text):
+        self.TOKEN = TOKEN
+        self.chat_id = chat_id
+        self.text = text
 
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={text}"
-    response = requests.get(url)
+    def get_url(self):
+        url = f'https://api.telegram.org/bot{self.TOKEN}/sendMessage'
+        return url
 
-    return response.status_code
+    def get_params(self):
+        params = {
+            'chat_id': self.chat_id,
+            'text': self.text
+        }
+        return params
 
-    # check if this would work
-    # params = {'chat_id':chat_id, 'text':text}
-    # url = 'https://api.telegram.org/bot{TOKEN}/sendMessage'
-    # response = requests.get(url, params=params)
-    # print(response.url)
+    def send_text(self):
+        url = self.get_url()
+        params = self.get_params()
+
+        try:
+            response = requests.get(url, params=params)
+            return response.status_code
+        except Exception as e:
+            return(str(e))
