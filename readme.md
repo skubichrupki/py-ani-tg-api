@@ -1,8 +1,14 @@
-### random anime quote everyday via telegram using python
+## Stack/services:
+- python
+- animechan
+- telegram
 
-- get request to api from https://animechan.io/
-- get request to telegram bot
-- task scheduled with https://www.pythonanywhere.com
+## Description:
 
-result: <br>
+Sending automated message at 9am to user with random anime quote.
+
+- get request to api https://animechan.io/ for random anime quote
+- get request to api telegram bot to send text
+- task scheduled with [Python Anywhere](https://www.pythonanywhere.com)
+Result: <br>
 ![result](https://github.com/user-attachments/assets/8a263710-6e00-4e8f-9182-10b440baf187)
